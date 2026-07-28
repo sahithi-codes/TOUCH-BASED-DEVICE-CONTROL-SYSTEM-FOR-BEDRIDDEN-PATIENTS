@@ -15,7 +15,10 @@ This project implements a Password-Protected Touch-Based Device Control System f
 An accessible, secure, and touch-operated device control system built on the **LPC2148 ARM7** microcontroller. Designed specifically for bedridden patients, elderly individuals, and rehabilitation care, this system allows users to control ambient appliances (lights, fans) and trigger emergency alerts independently.
 
 ---
+##Project Structure
 
+* **lcd.c/lcd.h
+* **lcd_defines.h
 ## 📌 System Features
 
 * **🔑 Password-Protected Access:** Matrix keypad input with non-volatile password storage in SPI EEPROM.
