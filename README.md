@@ -18,14 +18,18 @@ An accessible, secure, and touch-operated device control system built on the **L
 ## 📁 Project Structure
 
 ```text
-├── main.c
-├── rtc.c / rtc.h
-├── lcd.c / lcd.h
-├── KPM.c / KPM.h
-├── delay.c / delay.h
-├── mini_project_functions.c / .h
+├── project_main.c
+├── delay.c/delay.h
+├── types.h
+├── defines.h
 ├── lcd_defines.h
-└── other supporting files
+├── lcd.c / lcd.h
+├── keypad.c / keypad.h / keypad_defines.h
+├── SPI.c / SPI.h / SPI_defines.h
+├──interrupt.c / interrupt.h
+├── pin_connect_block.c / pin_connect_block.h
+├── touch_1.c / touch_1.h
+└── uart.c / uart.h
 ```
 ## 📌 System Features
 
