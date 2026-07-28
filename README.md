@@ -12,11 +12,6 @@ This project implements a Password-Protected Touch-Based Device Control System f
 
 # 🏥 Touch-Based Device Control System for Bedridden Patients
 
-[![Microcontroller](https://img.shields.io/badge/MCU-LPC2148%20ARM7-blue.svg)](https://www.nxp.com)
-[![Language](https://img.shields.io/badge/Language-Embedded%20C-orange.svg)]()
-[![IDE](https://img.shields.io/badge/IDE-Keil%20µVision-green.svg)](https://www.keil.com)
-[![License](https://img.shields.io/badge/License-MIT-lightgrey.svg)](LICENSE)
-
 An accessible, secure, and touch-operated device control system built on the **LPC2148 ARM7** microcontroller. Designed specifically for bedridden patients, elderly individuals, and rehabilitation care, this system allows users to control ambient appliances (lights, fans) and trigger emergency alerts independently.
 
 ---
