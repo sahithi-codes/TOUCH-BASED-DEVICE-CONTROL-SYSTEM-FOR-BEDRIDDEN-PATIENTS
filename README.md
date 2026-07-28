@@ -8,4 +8,5 @@ This project implements a Password-Protected Touch-Based Device Control System f
 
 ## Block Diagram
 
-![Block Diagram](block_diagram.png)
+![Block Diagram]<img width="927" height="566" alt="block_diagram" src="https://github.com/user-attachments/assets/e0292d45-9eba-4019-8965-ec41a00ad5e0" />
+
