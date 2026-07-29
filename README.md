@@ -118,8 +118,6 @@ Before full integration, each subsystem is individually tested and validated:
 
 ---
 
-### Phase 2: Application Core Logic (`projectmain.c`)
-
 ```mermaid
 flowchart TD
     A[System Startup & Peripheral Init] --> B[Wait for Password Entry via Keypad]
@@ -146,9 +144,9 @@ flowchart TD
     I --> G
     J --> G
     L --> B
+```
 
 ## 🤝 Project Outcomes
-
-* Developed a fully modular, low-power assistive control system for patient independence.
-* Implemented interrupt-driven peripheral handling (UART, SPI, GPIO) on ARM7 hardware.
-* Created a secure authentication pipeline using SPI-based EEPROM persistence.
+- **Enhanced Patient Autonomy:** Enables bedridden individuals to control ambient appliances safely.
+- **Robust Authentication:** Prevents unauthorized device toggling via encrypted EEPROM password protection.
+- **Emergency Preparedness:** Immediate buzzer alerts allow fast caregiver response times.
