@@ -104,6 +104,49 @@ An accessible, secure, and touch-operated device control system built on the **L
 
 ---
 
+## 🚀 Implementation & Execution Sequence
+
+### Phase 1: Modular Verification & Driver Testing
+Before full integration, each subsystem is individually tested and validated:
+
+1. **LCD Module:** Verified basic display functionality by printing character constants, string constants, and integer values.
+2. **Keypad Interface:** Mapped keypad inputs and verified keypress responses on the LCD.
+3. **UART Interrupts:** Flashed and verified UART interrupt-driven serial communication on target hardware.
+4. **EEPROM I2C/SPI:** Verified `BYTE WRITE` and `BYTE READ` routines by writing $N$ bytes to EEPROM and validating contents via LCD display.
+5. **Touchscreen Module (Standalone):** Connected resistive touchscreen controller to PC via MAX232 level shifter to inspect raw coordinate payloads.
+6. **Touchscreen Interrupts:** Built custom UART interrupt handlers to capture real-time touch coordinates.
+
+---
+
+### Phase 2: Application Core Logic (`projectmain.c`)
+
+```mermaid
+flowchart TD
+    A[System Startup & Peripheral Init] --> B[Wait for Password Entry via Keypad]
+    B --> C[Fetch Stored Password from EEPROM]
+    C --> D{Is Password Valid?}
+    
+    D -- No --> E[Display Error & Retry]
+    E --> B
+    
+    D -- Yes --> F[Unlock System & Enable Touchscreen]
+    F --> G[Poll / Await Touchscreen Input]
+    
+    G --> H{Evaluate Touch Location}
+    H -- Device 1 Coordinate --> I[Toggle Device 1 LED]
+    H -- Device 2 Coordinate --> J[Toggle Device 2 LED]
+    H -- Emergency Coordinate --> K[Activate Emergency Buzzer Alert]
+    H -- Lock System --> L[Disable Touchscreen & Lock Unit]
+    
+    K --> M{Trigger Password Reset Interrupt?}
+    M -- Yes --> N[Prompt Password Change Routine]
+    N --> O[Save Updated Password to EEPROM]
+    O --> B
+    
+    I --> G
+    J --> G
+    L --> B
+
 ## 🤝 Project Outcomes
 
 * Developed a fully modular, low-power assistive control system for patient independence.
