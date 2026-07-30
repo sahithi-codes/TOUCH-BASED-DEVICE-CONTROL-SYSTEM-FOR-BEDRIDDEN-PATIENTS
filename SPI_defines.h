@@ -32,4 +32,3 @@
 // EEPROM READ command (reads data from memory)
 #define READ  0x03
 
--- INSERT --                                                                                                                      67,1          Bot
