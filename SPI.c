@@ -292,5 +292,4 @@ void Password_Read(char *str)
     // Null terminate password string
     str[4] = '\0';
 }
-                                                                                                                                  267,2         90%
                                                                 
