@@ -119,31 +119,49 @@ Before full integration, each subsystem is individually tested and validated:
 ---
 
 ```mermaid
-flowchart TD
-    A[System Startup & Peripheral Init] --> B[Wait for Password Entry via Keypad]
-    B --> C[Fetch Stored Password from EEPROM]
-    C --> D{Is Password Valid?}
+    flowchart TD
+    Start([System Power On]) --> Init[Initialize Peripherals:<br/>LCD, Keypad, UART ISR, EEPROM, Touchscreen]
+    Init --> ReadEEPROM[Read Stored Password<br/>from EEPROM]
     
-    D -- No --> E[Display Error & Retry]
-    E --> B
+    %% PASSWORD ENTRY BLOCK
+    ReadEEPROM --> WaitPass[Wait for Password<br/>Entry via Keypad]
+    WaitPass --> CheckPass{Password<br/>Valid?}
     
-    D -- Yes --> F[Unlock System & Enable Touchscreen]
-    F --> G[Poll / Await Touchscreen Input]
+    CheckPass -- No --> WrongPass[Display Error on LCD]
+    WrongPass --> WaitPass
     
-    G --> H{Evaluate Touch Location}
-    H -- Device 1 Coordinate --> I[Toggle Device 1 LED]
-    H -- Device 2 Coordinate --> J[Toggle Device 2 LED]
-    H -- Emergency Coordinate --> K[Activate Emergency Buzzer Alert]
-    H -- Lock System --> L[Disable Touchscreen & Lock Unit]
+    CheckPass -- Yes --> Unlock[Activate Touchscreen<br/>Display Main Control Menu]
+
+    %% MAIN EVENT LOOP
+    Unlock --> CheckEvent{Check Input / Interrupt}
+
+    %% Branch 1: Device Control
+    CheckEvent -- Touch Event --> ReadPos[Read Touch Coordinates<br/>via UART ISR]
+    ReadPos --> PosType{Identify Touch Region}
     
-    K --> M{Trigger Password Reset Interrupt?}
-    M -- Yes --> N[Prompt Password Change Routine]
-    N --> O[Save Updated Password to EEPROM]
-    O --> B
+    PosType -- Position 1 --> ToggleD1[Toggle Device 1 ON/OFF]
+    PosType -- Position 2 --> ToggleD2[Toggle Device 2 ON/OFF]
+    PosType -- Position 3 --> Emergency[Activate Emergency Buzzer]
+    PosType -- Lock Icon --> LockSys[Disable Touchscreen]
     
-    I --> G
-    J --> G
-    L --> B
+    ToggleD1 --> UpdateLCD[Update Status on LCD]
+    ToggleD2 --> UpdateLCD
+    Emergency --> UpdateLCD
+    UpdateLCD --> CheckEvent
+
+    LockSys --> WaitPass
+
+    %% Branch 2: Password Change
+    CheckEvent -- Interrupt Triggered --> PassChange[Initiate Password Modification]
+    PassChange --> PromptNew[Prompt New Password<br/>via Keypad]
+    PromptNew --> SaveEEPROM[Write New Password<br/>to EEPROM]
+    SaveEEPROM --> UpdateLCD2[Display 'Password Updated']
+    UpdateLCD2 --> WaitPass
+
+    style Start fill:#2e7d32,stroke:#333,stroke-width:2px,color:#fff
+    style CheckPass fill:#e65100,stroke:#333,stroke-width:2px,color:#fff
+    style CheckEvent fill:#e65100,stroke:#333,stroke-width:2px,color:#fff
+    style PosType fill:#e65100,stroke:#333,stroke-width:2px,color:#fff
 ```
 
 ## 🤝 Project Outcomes
