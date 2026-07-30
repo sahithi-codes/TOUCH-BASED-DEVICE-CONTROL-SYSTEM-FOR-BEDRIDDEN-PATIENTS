@@ -22,7 +22,7 @@ u8 KpmLUT[4][4]=
         {'4','5','6','-'},
         {'7','8','9','*'},
         {'C','0','=','/'}
-}
+};
 
 //InitKPM() - Configure keypad row pins as outputs
 void InitKPM(void)
@@ -87,9 +87,9 @@ u8 ColCheck(void)
 }
 
 //KeyScan() - Detects a key press and returns its value,returns ASCII value of the pressed key
-u8 KeyScan(void)
+char KeyScan(void)
 {
-        u8 keyv;        //stores final key value
+        char keyv=0;        
         u8 rno;         //Row number
         u8 cno;         //Column number
 
