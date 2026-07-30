@@ -9,17 +9,17 @@
 #include "delay.h"
 
 // External state and buffer variables
-extern char uart_rx_buf[23];
-extern char x_str[10], y_str[10], z_str[10];
-extern unsigned int uart_idx;
-extern unsigned int rx_complete;
-extern int sys_enabled;
-extern int buzzer_active;
-extern int fan_active;
-extern int light_active;
-extern int last_x;
-extern int last_y;
-extern int is_new_touch;
+char uart_rx_buf[23];
+char x_str[10], y_str[10], z_str[10];
+unsigned int uart_idx;
+unsigned int rx_complete;
+int sys_enabled;
+int buzzer_active;
+int fan_active;
+int light_active;
+int last_x;
+int last_y;
+int is_new_touch;
 
 void Touch_Process(void)
 {
